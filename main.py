@@ -21,10 +21,11 @@ mode = 0
 
 while running:
     # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            print("Click Detect")
 
     # RENDER YOUR GAME HERE
     screen.fill((228, 100, 36))
@@ -39,6 +40,6 @@ while running:
 
 
     pygame.display.flip()
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(60)
 
 pygame.quit()
