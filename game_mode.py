@@ -8,6 +8,7 @@ class GameMode:
 
     @classmethod
     def change_mode(cls, mode):
+
         cls.current_mode = mode
 
     @classmethod

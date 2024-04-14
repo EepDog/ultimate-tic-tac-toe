@@ -11,7 +11,6 @@ class MainMenu:
         self.screen = screen
         self.mode = 0
 
-        # TODO: Make multiple themes that are selectable in an options menu
         self.color_themes = [()]
         self.menu_theme = pygame_menu.Theme(background_color=(144, 55, 73),
                                             # 71, 79, 122
@@ -41,7 +40,7 @@ class MainMenu:
         GameMode.change_mode(2)
 
     def normal_ttt_start(self):
-        print("Clicked on Normal Tic Tac Toe button!")
+        # print("Clicked on normal Tic Tac Toe button")
         self.menu.disable()
         self.active = False
         GameMode.change_mode(1)
