@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import game_mode
 
 
 class BasicBoard:
@@ -24,11 +25,19 @@ class BasicBoard:
         # TODO: Have the mode be sent to this object
         self.mode = 1
 
+    def board_reset(self):
+        self.active = True
+        self.board_cells = [0, 1, 2,
+                            3, 4, 5,
+                            6, 7, 8]
+        self.winning_player = None
+
     def win_scan(self):
         print("Scanning for win...")
         for condition in self.win_conditions:
             if all(self.board_cells[tile] == "X" for tile in condition):
                 self.winning_player = "X"
+
                 return True, "X"  # X Player wins
             elif all(self.board_cells[tile] == "O" for tile in condition):
                 self.winning_player = "O"
@@ -81,7 +90,6 @@ class BasicBoard:
                 self.screen.blit(symbol_text, symbol_rect)
 
         if not self.active and self.mode == 1:
-            print("Active")
             center_x = self.board_size[0] // 2
             center_y = self.board_size[1] // 2
 
@@ -92,6 +100,11 @@ class BasicBoard:
             w_text_rect = winner_text.get_rect()
             w_text_rect.center = (center_x, center_y)
             self.screen.blit(winner_text, w_text_rect)
+            pygame.display.flip()
+
+            pygame.time.wait(3000)
+            game_mode.GameMode.change_mode(0)
+            self.board_reset()
 
     def change_text_color(self):
         # The player's name will turn white to display that it's their turn
@@ -123,8 +136,8 @@ class BasicBoard:
                 if result:
                     self.active = False
                     winning_symbol = result[1]
-
                     print(f"The winner is {winning_symbol}")
+                    pygame.display.flip()
 
     def board_symbol_logic(self, col, row):
         if self.player_turn == 1:

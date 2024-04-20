@@ -26,8 +26,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_focused() and current_mode == 1:
-            #print("Click Detect")
-           # print(pygame.mouse.get_pos())
             regular_ttt.click_detection(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
 
 
