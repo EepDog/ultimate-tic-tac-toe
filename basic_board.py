@@ -22,7 +22,6 @@ class BasicBoard:
 
         self.win_conditions = [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
         self.winning_player = None
-        # TODO: Have the mode be sent to this object
         self.mode = 1
 
     def board_reset(self):
@@ -37,12 +36,13 @@ class BasicBoard:
         for condition in self.win_conditions:
             if all(self.board_cells[tile] == "X" for tile in condition):
                 self.winning_player = "X"
-
                 return True, "X"  # X Player wins
             elif all(self.board_cells[tile] == "O" for tile in condition):
                 self.winning_player = "O"
                 return True, "O"  # O Player wins
-        return False  # No winner yet
+        if all(cell in ["X", "O"] for cell in self.board_cells):
+            return True, "Draw"
+        return False, None  # No winner yet
 
     def draw_basic_board(self):
         width_amount = 10  # This sets how thick the board lines are
@@ -94,8 +94,10 @@ class BasicBoard:
             center_y = self.board_size[1] // 2
 
             winner_font = pygame.font.Font(None, int(playable_board_x * 0.15))
-
-            winner_text = winner_font.render(f'The winner is {self.winning_player}!', True, [0, 0, 0])
+            if self.winning_player == "Draw":
+                winner_text = winner_font.render(f'Draw!', True, [0, 0, 0])
+            else:
+                winner_text = winner_font.render(f'The winner is {self.winning_player}!', True, [0, 0, 0])
 
             w_text_rect = winner_text.get_rect()
             w_text_rect.center = (center_x, center_y)
@@ -133,9 +135,11 @@ class BasicBoard:
                       f"Row: {row}")
                 self.board_check(col=col, row=row)
                 result = self.win_scan()
-                if result:
+                if result[0]:
                     self.active = False
                     winning_symbol = result[1]
+                    if winning_symbol == "Draw":
+                        self.winning_player = "Draw"
                     print(f"The winner is {winning_symbol}")
                     pygame.display.flip()
 

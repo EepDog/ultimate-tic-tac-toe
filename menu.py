@@ -34,7 +34,6 @@ class MainMenu:
         self.exit_button = self.menu.add.button('Exit', self.end_program)
 
     def start_ultimate(self):
-        print("Clicked on Ultimate Tic Tac Toe button")
         self.menu.disable()
         self.active = False
         GameMode.change_mode(2)

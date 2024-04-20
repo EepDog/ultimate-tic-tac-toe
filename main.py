@@ -17,6 +17,7 @@ running = True
 pygame.display.set_caption('Ultimate Tic-Tac-Toe')  # Sets the title of application
 main_menu = MainMenu(screen)
 regular_ttt = BasicBoard(screen)
+ultimate_ttt = AdvancedBoard(screen)
 mode = 0
 # 0 = Menu, 1 = Regular TTT, 2 =  Ultimate, 3 = Options
 
@@ -37,11 +38,11 @@ while running:
     elif current_mode == 1:
         regular_ttt.draw_basic_board()
     elif current_mode == 2:
-        print("Ultimate TTT mode")
+        ultimate_ttt.draw_ultimate_board()
     elif current_mode == 3:
         print("Options Mode")
     else:
-        print("Warning! This shouldn't be happening")
+        print("Warning!")
 
 
 
