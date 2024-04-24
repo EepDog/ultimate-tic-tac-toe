@@ -25,33 +25,33 @@ class MainMenu:
 
                                             )
 
-        self.menu = pygame_menu.Menu('Ultimate Tic Tac Toe', 900, 800, theme=pygame_menu.themes.THEME_ORANGE)
+        self.main_menu = pygame_menu.Menu('Ultimate Tic Tac Toe', 900, 800, theme=pygame_menu.themes.THEME_ORANGE)
 
         # Button Setup
-        self.ultimate_ttt_start = self.menu.add.button('Ultimate Tic Tac Toe', self.start_ultimate)
-        self.normal_ttt_start = self.menu.add.button('Normal Tic Tac Toe', self.normal_ttt_start)
-        self.options_button = self.menu.add.button('Options', self.options_button_press)
-        self.exit_button = self.menu.add.button('Exit', self.end_program)
+        self.ultimate_ttt_start = self.main_menu.add.button('Ultimate Tic Tac Toe', self.start_ultimate)
+        self.normal_ttt_start = self.main_menu.add.button('Normal Tic Tac Toe', self.normal_ttt_start)
+        self.options_button = self.main_menu.add.button('Options', self.options_button_press)
+        self.exit_button = self.main_menu.add.button('Exit', self.end_program)
 
     def start_ultimate(self):
-        self.menu.disable()
+        self.main_menu.disable()
         self.active = False
         GameMode.change_mode(2)
 
     def normal_ttt_start(self):
-        # print("Clicked on normal Tic Tac Toe button")
-        self.menu.disable()
+        self.main_menu.disable()
         self.active = False
         GameMode.change_mode(1)
 
 
     def options_button_press(self):
         print("Clicked on Options menu")
+        GameMode.change_mode(3)
 
     @staticmethod
     def end_program():
         sys.exit()
 
     def display_menu(self):
-        self.menu.enable()
-        self.menu.mainloop(self.screen)
+        self.main_menu.enable()
+        self.main_menu.mainloop(self.screen)

@@ -1,5 +1,7 @@
 import pygame
 import pygame_menu
+
+import game_mode
 import menu
 from advanced_board import AdvancedBoard
 from basic_board import BasicBoard
@@ -28,6 +30,10 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_focused() and current_mode == 1:
             regular_ttt.click_detection(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE and pygame.mouse.get_focused() and 0 < current_mode <= 3:
+                game_mode.GameMode.change_mode(0)
+                regular_ttt.board_reset()
 
 
 

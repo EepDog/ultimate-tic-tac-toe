@@ -1,5 +1,4 @@
 import pygame
-import sys
 import random
 import game_mode
 
@@ -30,6 +29,7 @@ class BasicBoard:
                             3, 4, 5,
                             6, 7, 8]
         self.winning_player = None
+        self.player_turn = random.randint(1, 2)
 
     def win_scan(self):
         print("Scanning for win...")
@@ -88,6 +88,12 @@ class BasicBoard:
                 symbol_text = symbol_font.render(cell, True, self.board_color)
                 symbol_rect = symbol_text.get_rect(center=(symbol_x, symbol_y))
                 self.screen.blit(symbol_text, symbol_rect)
+        if self.mode == 1:
+            tooltip_font = pygame.font.Font(None, int(self.board_size[1] / margin * 2))
+
+            esc_tooltip = tooltip_font.render("Press ESC to return to main menu", True, (0, 0, 0))
+            esc_tooltip_rect = esc_tooltip.get_rect(bottomleft=(0, self.board_size[1]))
+            self.screen.blit(esc_tooltip, esc_tooltip_rect)
 
         if not self.active and self.mode == 1:
             center_x = self.board_size[0] // 2
@@ -98,6 +104,13 @@ class BasicBoard:
                 winner_text = winner_font.render(f'Draw!', True, [0, 0, 0])
             else:
                 winner_text = winner_font.render(f'The winner is {self.winning_player}!', True, [0, 0, 0])
+
+                if self.mode == 2:                # Displays large winning symbol at end of game
+                    ending_winner_symbol_font = pygame.font.Font(None, int(self.board_size[0] * 0.9))
+                    ending_winner_symbol_text = ending_winner_symbol_font.render(f"{self.winning_player}", True, self.board_color)
+                    ews_rect = ending_winner_symbol_text.get_rect()
+                    ews_rect.center = center_x, center_y
+                    self.screen.blit(ending_winner_symbol_text,ews_rect)
 
             w_text_rect = winner_text.get_rect()
             w_text_rect.center = (center_x, center_y)
